@@ -23,16 +23,32 @@
 # noise and makes the prefilter counts impossible to reason about.
 
 companies:
-  - {ats: greenhouse, slug: stripe,      name: Stripe}
-  - {ats: greenhouse, slug: databricks,  name: Databricks}
-  - {ats: greenhouse, slug: cloudflare,  name: Cloudflare}
-  - {ats: greenhouse, slug: figma,       name: Figma}
-  - {ats: greenhouse, slug: dropbox,     name: Dropbox}
-  - {ats: greenhouse, slug: coinbase,    name: Coinbase}
-  - {ats: greenhouse, slug: reddit,      name: Reddit}
-  - {ats: lever,      slug: voleon,      name: Voleon}
+- {ats: greenhouse, slug: datadog, name: Datadog}
+- {ats: greenhouse, slug: stripe, name: Stripe}
+- {ats: ashby, slug: ramp, name: Ramp}
+- {ats: ashby, slug: plaid, name: Plaid}
+- {ats: ashby, slug: notion, name: Notion}
+- {ats: ashby, slug: astronomer, name: Astronomer}
+- {ats: greenhouse, slug: mercury, name: Mercury}
+- {ats: greenhouse, slug: brex, name: Brex}
+- {ats: greenhouse, slug: mixpanel, name: Mixpanel}
+- {ats: greenhouse, slug: vercel, name: Vercel}
+- {ats: lever, slug: palantir, name: Palantir}
+- {ats: greenhouse, slug: gusto, name: Gusto}
+- {ats: greenhouse, slug: samsara, name: Samsara}
+- {ats: greenhouse, slug: scaleai, name: Scale AI}
+- {ats: greenhouse, slug: perpay, name: Perpay}
+- {ats: greenhouse, slug: anthropic, name: Anthropic}
+- {ats: ashby, slug: openai, name: OpenAI}
+- {ats: greenhouse, slug: databricks, name: Databricks}
+- {ats: greenhouse, slug: gleanwork, name: Glean}
+- {ats: ashby, slug: cohere, name: Cohere}
+- {ats: greenhouse, slug: pendo, name: Pendo}
+- {ats: greenhouse, slug: cloudflare, name: Cloudflare}
+- {ats: greenhouse, slug: reddit, name: Reddit}
+- {ats: greenhouse, slug: duolingo, name: Duolingo}
+- {ats: greenhouse, slug: robinhood, name: Robinhood}
+- {ats: greenhouse, slug: coinbase, name: Coinbase}
+- {ats: greenhouse, slug: twilio, name: Twilio}
+# - {ats: greenhouse, slug: dbtlabsinc, name: dbt Labs}   # slug 404s (checked 2026-11-17), re-add once verified
 
-  - {ats: ashby,      slug: openai,      name: OpenAI}
-  - {ats: ashby,      slug: ramp,        name: Ramp}
-  - {ats: ashby,      slug: linear,      name: Linear}
-  - {ats: ashby,      slug: vanta,       name: Vanta}

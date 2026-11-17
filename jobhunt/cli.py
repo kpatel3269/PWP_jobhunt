@@ -189,7 +189,10 @@ def cmd_run(args) -> int:
     else:
         print("  --send not passed, email skipped")
 
-    store.record(jobs, emailed=sent)
+    # Only record jobs that were actually scored. A batch that failed (e.g. a
+    # transient 503) leaves score=None; recording those would hide them forever.
+    # Leaving them unrecorded means the next run retries them.
+    store.record([j for j in jobs if j.score is not None], emailed=sent)
     csv_path = store.export_csv(cfg.get("tracker_csv", "out/tracker.csv"))
 
     print(f"\nfunnel: {scanned} scanned -> {passed_filters} passed filters "

@@ -12,52 +12,206 @@ filters:
   # Engineer" — different words entirely. Use \bsde\b for the acronym and
   # list the spelled-out variants separately, as below.
   include_titles:
-    - '\b(software|backend|back-end|server|platform|infrastructure|infra|systems|distributed|cloud)\b.*\bengineer\b'
-    - '\bengineer\b.*\b(backend|back-end|platform|infrastructure|infra|systems|distributed)\b'
+    # core backend / software
+    - '\b(software|backend|back-end|server|platform|infrastructure|infra|systems|distributed|cloud|api)\b.*\bengineer\b'
+    - '\bengineer\b.*\b(backend|back-end|platform|infrastructure|infra|distributed|api)\b'
     - '\bsde\b'
     - '\bsde\s*-?\s*(i{1,3}|[123])\b'
     - 'software development engineer'
     - 'software engineer'
+    - 'full[\s-]?stack'
+    - 'member of technical staff'
     - 'site reliability engineer'
     - '\bsre\b'
-    - 'member of technical staff'
-    # systems / networking track — matches your DPDK, packet-processing and
-    # kernel background. Drop these if you widen away from low-level work.
-    - '\bnetwork(ing)?\s+(software\s+)?engineer\b'
-    - '\b(kernel|embedded|firmware|driver|packet|dataplane|data plane)\b.*\bengineer\b'
-    - '\bengineer\b.*\b(kernel|packet|dataplane|networking|performance)\b'
-    - '\bperformance engineer\b'
-    - '\bsystems engineer\b'
-    - '\bc\+\+\b.*\bengineer\b'
-    - '\bengineer\b.*\bc\+\+\b'
+    - 'devops engineer'
+    # data track — Airflow, Postgres, Tableau, data-quality work
+    - 'data engineer'
+    - 'analytics engineer'
+    - 'data platform'
+    # AI / ML track — PyTorch, Hugging Face, DistilBERT, FlowDesk AI
+    - '\b(machine learning|ml|ai|applied ai|genai|llm)\s+engineer'   # \b fixes "HTML Engineer" false match
+    - '\bengineer\b.*\b(machine learning|ml|ai|llm)\b'
+    - 'forward deployed (software )?engineer'
+    # early-career labels that don't always say "engineer"
+    - 'new grad'
+    - 'early career'
+    - 'university grad'
+    - 'emerging talent'
 
   # Anything matching these is dropped even if an include matched.
   exclude_titles:
-    - '\b(staff|principal|distinguished|fellow|architect)\b'      # too senior for now
-    # "Senior" at 2.5 years is a consistent 3-4 from the screener — dropping it
-    # here is free, dropping it after an LLM call is not. Delete this line once
-    # you are ~4 years in, or if you want to stretch-apply anyway.
+    - '\b(staff|principal|distinguished|fellow|architect)\b'      # too senior
+    # Senior roles screen at 4-5+ years. Delete these two lines if you want to
+    # stretch-apply once you have more full-time experience.
     - '\bsenior\b'
+    - '\bsr\.?\b'
+    # Mid-level numbered titles (Software Engineer II/III, SDE 2, L2/L3) usually
+    # want 3+ years. Level I / New Grad still passes.
+    - '\bengineer[\s,]*(ii|iii|iv|2|3|4)\b'
+    - '\bsde\s*-?\s*(ii|iii|iv|[234])\b'
+    - '\(?\bl[2-9]\b\)?'
     - '\b(director|vp|vice president|head of|chief|cto)\b'
     - '\b(manager|management)\b'
-    - '\b(intern|internship|apprentice|trainee)\b'                # too junior
+    - '\b(intern|internship|apprentice|apprenticeship|trainee|co-op)\b'  # you've graduated
+    - '\b(contract|contractor|temporary|part-time|freelance|consultant)\b'
     - '\b(sales|account executive|marketing|recruit|support|success)\b'
-    - '\b(frontend|front-end|ios|android|mobile|game|designer)\b' # wrong discipline
+    - '\b(frontend|front-end|ios|android|mobile|game|designer)\b'       # backend/full-stack only
     - '\b(data scientist|machine learning scientist|research scientist)\b'
+    - '\b(security|solutions|sales|customer|field|hardware|test|qa) engineer\b'  # wrong discipline
+    - '\bsdet\b'
 
   # Substrings matched against "<location> <title>", case-insensitive.
   # Leave empty to accept every location.
+  #
+  # Gotchas:
+  #  - No bare state codes (", ca" also matches "Toronto, Canada") and no bare
+  #    "us" (matches "focus"). Full state names only.
+  #  - "georgia" is left out on purpose: it also matches Tbilisi, Georgia.
+  #    Atlanta/Savannah/Alpharetta cover the US state instead.
   locations:
-    - bangalore
-    - bengaluru
-    - india
+    # country-level
+    - united states
+    - ' usa'
+    - u.s.
+
+    # --- North Carolina: statewide + cities ---
+    - north carolina
+    - raleigh
+    - durham
+    - chapel hill
+    - cary
+    - morrisville
+    - apex
+    - holly springs
+    - wake forest
+    - research triangle
+    - rtp
+    - charlotte
+    - concord
+    - huntersville
+    - cornelius
+    - davidson
+    - matthews
+    - pineville
+    - mooresville
+    - gastonia
+    - kannapolis
+    - fort mill
+    - rock hill
+    - greensboro
+    - high point
+    - winston-salem
+    - asheville
+    - wilmington
+    - fayetteville
+
+    # --- all 50 states ---
+    - alabama
+    - alaska
+    - arizona
+    - arkansas
+    - california
+    - colorado
+    - connecticut
+    - delaware
+    - florida
+    - hawaii
+    - idaho
+    - illinois
+    - indiana
+    - iowa
+    - kansas
+    - kentucky
+    - louisiana
+    - maine
+    - maryland
+    - massachusetts
+    - michigan
+    - minnesota
+    - mississippi
+    - missouri
+    - montana
+    - nebraska
+    - nevada
+    - new hampshire
+    - new jersey
+    - new mexico
+    - new york
+    - ohio
+    - oklahoma
+    - oregon
+    - pennsylvania
+    - rhode island
+    - south carolina
+    - south dakota
+    - tennessee
+    - texas
+    - utah
+    - vermont
+    - virginia
+    - washington
+    - wisconsin
+    - wyoming
+    - district of columbia
+    - washington dc
+    - d.c.
+
+    # --- major hubs (catches "City" with no state) ---
+    - new york
+    - brooklyn
+    - jersey city
+    - newark
+    - edison
+    - princeton
+    - san francisco
+    - palo alto
+    - menlo park
+    - mountain view
+    - sunnyvale
+    - san jose
+    - redwood city
+    - los angeles
+    - san diego
+    - seattle
+    - bellevue
+    - redmond
+    - boston
+    - cambridge
+    - chicago
+    - austin
+    - dallas
+    - houston
+    - denver
+    - boulder
+    - atlanta
+    - alpharetta
+    - savannah
+    - philadelphia
+    - pittsburgh
+    - miami
+    - tampa
+    - orlando
+    - portland
+    - salt lake city
+    - phoenix
+    - minneapolis
+    - detroit
+    - columbus
+    - nashville
+    - baltimore
+    - arlington
+    - mclean
+    - reston
 
   # If true, anything reading as remote passes the location gate.
+  # Heads up: "remote" alone can include non-US remote roles (e.g. "Remote - UK",
+  # "Remote - Canada"). If those show up, set this to false and rely on the list
+  # above, since "Remote - US" already matches "united states" / "u.s." in most postings.
   allow_remote: true
 
   # Drop postings older than this. Set to null to disable.
   # Boards often re-stamp `updated_at`, so this is a soft signal, not a promise.
-  max_age_days: 30
+  max_age_days: 14
 
 # --- LLM stages -------------------------------------------------------------
 screen_batch_size: 8      # jobs per screening call. Higher = cheaper, sloppier.

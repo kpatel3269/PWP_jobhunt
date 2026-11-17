@@ -2,10 +2,12 @@ name: daily job digest
 
 on:
   schedule:
-    # 06:00 IST, weekdays. IST is UTC+5:30, so 06:00 IST == 00:30 UTC.
+    # 03:00 EST, every day. EST is UTC-5, so 03:00 EST == 08:00 UTC.
+    # GitHub cron is always UTC and ignores daylight saving: during EDT
+    # (mid-March to early November) this fires at 04:00 Eastern instead.
     # GitHub's scheduler is best-effort and can lag by several minutes under
     # load — that is fine for a job digest, do not tighten it.
-    - cron: "30 0 * * 1-5"
+    - cron: "0 8 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
